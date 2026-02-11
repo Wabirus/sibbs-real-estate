@@ -1,0 +1,84 @@
+/* Properties Grid */
+.propertiesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.propertyCard {
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.propertyCard:hover {
+  transform: translateY(-5px);
+}
+
+.propertyImagePlaceholder {
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: #999999;
+}
+
+.propertyInfo {
+  padding: 1rem;
+}
+
+.propertyInfo h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #333333;
+  font-weight: 700;
+  font-family: "Raleway", "Helvetica", sans-serif;
+}
+
+.location {
+  font-size: 0.9rem;
+  color: #666666;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.price {
+  font-size: 1.3rem;
+  color: #D4AF37;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.btnSmall {
+  display: inline-block;
+  padding: 8px 20px;
+  background: #2c3892;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 20px;
+  border: 2px solid #2c3892;
+  transition: all 0.3s;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.btnSmall:hover {
+  background: transparent;
+  color: #2c3892;
+  border-color: #2c3892;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .propertiesGrid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
