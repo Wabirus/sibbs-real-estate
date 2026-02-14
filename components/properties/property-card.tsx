@@ -2,74 +2,81 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { Button } from "@/components/ui/button";
+import type { Property } from "@/types/property";
 
-interface PropertyProps {
-    id: string;
-    title: string;
-    price: string;
-    address: string;
-    image: string;
-    beds: number;
-    baths: number;
-    sqft: number;
-    type: string;
+function formatPrice(price: number, currency: string) {
+    return `${currency}${price.toLocaleString()}`;
 }
 
-export default function PropertyCard({ property }: { property: PropertyProps }) {
+function formatLocation(loc: Property["location"]) {
+    return `${loc.country}/${loc.region}/${loc.city}`;
+}
+
+export default function PropertyCard({ property }: { property: Property }) {
     return (
         <motion.div
-            whileHover={{ y: -5 }}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            whileHover={{ y: -4 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 group"
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-400 border border-gray-100"
         >
-            {/* Image Container */}
-            <div className="relative h-64 overflow-hidden">
+            {/* Image */}
+            <div className="relative h-52 overflow-hidden">
                 <Image
                     src={property.image}
-                    alt={property.title}
+                    alt={property.name}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
-                    {property.type}
-                </div>
-                <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg shadow-sm font-bold text-primary">
-                    {property.price}
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
             </div>
 
             {/* Content */}
-            <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2 font-primary truncate">
-                    {property.title}
-                </h3>
-                <p className="text-gray-500 text-sm mb-4 flex items-center">
-                    <svg className="w-4 h-4 mr-1 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                    </svg>
-                    {property.address}
-                </p>
-
-                {/* Features */}
-                <div className="flex justify-between items-center text-sm text-gray-600 border-t pt-4">
-                    <div className="flex items-center gap-1">
-                        <span className="font-bold text-gray-900">{property.beds}</span> Beds
-                    </div>
-                    <div className="flex items-center gap-1">
-                        <span className="font-bold text-gray-900">{property.baths}</span> Baths
-                    </div>
-                    <div className="flex items-center gap-1">
-                        <span className="font-bold text-gray-900">{property.sqft}</span> Sqft
-                    </div>
+            <div className="p-5">
+                {/* Name + Price */}
+                <div className="flex items-start justify-between gap-2 mb-1.5">
+                    <h3 className="text-base font-bold text-gray-900 font-raleway leading-snug">
+                        {property.name}
+                    </h3>
+                    <span className="text-base font-bold text-gray-900 whitespace-nowrap">
+                        {formatPrice(property.price, property.currency)}
+                    </span>
                 </div>
 
-                <div className="mt-4 pt-2">
-                    <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-white transition-colors">
-                        View Details
-                    </Button>
+                {/* Location */}
+                <p className="text-xs text-gray-400 mb-4">
+                    {formatLocation(property.location)}
+                </p>
+
+                {/* Specs row */}
+                <div className="flex items-center gap-4 text-xs text-gray-500 pt-3 border-t border-gray-100">
+                    <span className="flex items-center gap-1">
+                        <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 8V6a2 2 0 012-2h12a2 2 0 012 2v2M4 8v10a2 2 0 002 2h12a2 2 0 002-2V8M4 8h16" />
+                        </svg>
+                        {property.specs.areaSqM} m²
+                    </span>
+                    <span className="flex items-center gap-1">
+                        <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5m14 0h2m-2 0v-2M5 21H3m2 0v-2" />
+                        </svg>
+                        {property.specs.floors} {property.specs.floors === 1 ? "floor" : "floors"}
+                    </span>
+                    <span className="flex items-center gap-1">
+                        <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1" />
+                        </svg>
+                        {property.specs.beds} beds
+                    </span>
+                    <span className="flex items-center gap-1">
+                        <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7h.01M12 7h.01M16 7h.01M3 12h18M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        {property.specs.baths} {property.specs.baths === 1 ? "bath" : "baths"}
+                    </span>
                 </div>
             </div>
         </motion.div>
