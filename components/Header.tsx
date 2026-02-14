@@ -5,17 +5,20 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { fadeIn, springSnappy } from "@/lib/animations";
 
+import { usePathname } from "next/navigation";
+
 const navItems = [
-  { href: "#home", label: "Home" },
-  { href: "#properties", label: "Properties" },
-  { href: "#services", label: "Services" },
-  { href: "#testimonials", label: "Testimonials" },
-  { href: "#contact", label: "Contact" },
+  { href: "/", label: "Home" },
+  { href: "/properties", label: "Properties" },
+  { href: "/#services", label: "Services" },
+  { href: "/#testimonials", label: "Testimonials" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -70,8 +73,8 @@ export default function Header() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
         className={`fixed top-[36px] w-full z-40 transition-all duration-300 ${scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-lg shadow-primary/5"
-            : "bg-white shadow-sm"
+          ? "bg-white/95 backdrop-blur-md shadow-lg shadow-primary/5"
+          : "bg-white shadow-sm"
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -88,16 +91,20 @@ export default function Header() {
 
             {/* Desktop nav links */}
             <ul className="hidden md:flex list-none gap-1">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    className="relative px-4 py-2 text-[15px] font-semibold text-gray-600 hover:text-primary transition-colors duration-200 rounded-lg hover:bg-primary/5"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+              {navItems.map((item) => {
+                const isActive = pathname === item.href || (item.href !== "/" && pathname?.startsWith(item.href));
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className={`relative px-4 py-2 text-[15px] font-semibold transition-colors duration-200 rounded-lg hover:bg-primary/5 ${isActive ? "text-primary bg-primary/5" : "text-gray-600 hover:text-primary"
+                        }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
 
             {/* Desktop CTA */}
@@ -143,22 +150,26 @@ export default function Header() {
               className="md:hidden bg-white border-t border-gray-100 shadow-lg"
             >
               <ul className="px-4 py-4 space-y-1">
-                {navItems.map((item, idx) => (
-                  <motion.li
-                    key={item.href}
-                    initial={{ opacity: 0, x: -16 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.05 }}
-                  >
-                    <a
-                      href={item.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="block px-4 py-2.5 text-gray-700 font-semibold rounded-lg hover:bg-primary/5 hover:text-primary transition-colors"
+                {navItems.map((item, idx) => {
+                  const isActive = pathname === item.href;
+                  return (
+                    <motion.li
+                      key={item.href}
+                      initial={{ opacity: 0, x: -16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.05 }}
                     >
-                      {item.label}
-                    </a>
-                  </motion.li>
-                ))}
+                      <Link
+                        href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className={`block px-4 py-2.5 font-semibold rounded-lg hover:bg-primary/5 hover:text-primary transition-colors ${isActive ? "text-primary bg-primary/5" : "text-gray-700"
+                          }`}
+                      >
+                        {item.label}
+                      </Link>
+                    </motion.li>
+                  );
+                })}
                 <li className="pt-2">
                   <a
                     href="#contact"
