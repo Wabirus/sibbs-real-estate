@@ -49,29 +49,41 @@ const services: Service[] = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 px-4 bg-primary text-white relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white/3 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-gold/5 rounded-full blur-[80px]" />
+    <section
+      id="services"
+      className="relative py-24 px-4 flex items-center justify-center overflow-hidden"
+    >
+      {/* ── Parallax Background ────────────────────────── */}
+      <div
+        className="absolute inset-0 z-0 bg-fixed bg-center bg-cover"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&h=400&fit=crop')",
+        }}
+      >
+        <div className="absolute inset-0 bg-primary-dark/60 backdrop-blur-[2px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section heading */}
+      <div className="max-w-7xl mx-auto relative z-10 w-full">
+        {/* Section heading (Glass Card) */}
         <motion.div
-          className="text-center mb-16"
           variants={sectionReveal}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
+          className="bg-white/10 backdrop-blur-md border border-white/20 p-8 md:p-12 rounded-3xl text-center shadow-2xl max-w-4xl mx-auto mb-16"
         >
-          <span className="inline-block text-gold text-sm font-bold uppercase tracking-[0.2em] mb-3">
-            What We Offer
-          </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold font-raleway mb-4 tracking-tight">
-            Our Services
-          </h2>
-          <div className="section-divider" />
+          <motion.h2
+            className="text-3xl md:text-5xl lg:text-5xl font-extrabold mb-6 font-raleway leading-tight text-white"
+          >
+            Find a place you<br />
+            will call <span className="text-gold">home</span>
+          </motion.h2>
+          <motion.p
+            className="text-lg text-gray-200 font-nunito max-w-2xl mx-auto leading-relaxed"
+          >
+            With us you will find not just accommodation, but a place where
+            your new life begins, full of coziness and possibilities.
+          </motion.p>
         </motion.div>
 
         {/* Service cards */}
@@ -86,11 +98,11 @@ export default function Services() {
             <motion.div
               key={service.title}
               variants={staggerItem}
-              className="group relative bg-white/6 backdrop-blur-sm border border-white/10 p-7 rounded-xl hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:bg-white/10"
+              className="group relative bg-white/10 backdrop-blur-md border border-white/20 p-7 rounded-2xl hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:bg-white/20"
             >
               {/* Accent gradient */}
               <div
-                className={`absolute inset-0 rounded-xl bg-gradient-to-br ${service.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${service.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
               />
 
               <div className="relative z-10">
@@ -106,9 +118,6 @@ export default function Services() {
                   {service.description}
                 </p>
               </div>
-
-              {/* Top accent line */}
-              <div className="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-gold/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
             </motion.div>
           ))}
         </motion.div>
