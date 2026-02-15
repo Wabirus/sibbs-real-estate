@@ -1,95 +1,86 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
-import {
-  fadeUp,
-  slideRight,
-  staggerContainer,
-  springGentle,
-  viewportConfig,
-} from "@/lib/animations";
+import { fadeUp, staggerContainer } from "@/lib/animations";
 
 export default function Hero() {
   return (
-    <section
-      id="home"
-      className="relative min-h-[85vh] bg-white pt-28 pb-16 flex items-center overflow-hidden"
-    >
-      {/* Subtle background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-primary/3 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[100px]" />
+    <section className="relative h-screen min-h-[600px] w-full overflow-hidden flex items-center justify-center">
+      {/* ── Background Image ───────────────────────────── */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1600&h=900&fit=crop"
+          alt="Luxury Villa"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-          {/* ─── Left — Text Content ────────────────────────── */}
+      {/* ── Content ────────────────────────────────────── */}
+      <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="max-w-4xl"
+        >
+          {/* Property of the Month Card */}
           <motion.div
-            className="flex-1 text-center lg:text-left"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
+            variants={fadeUp}
+            className="bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-2xl max-w-lg"
           >
-            {/* Heading */}
-            <motion.h1
-              variants={fadeUp}
-              transition={{ ...springGentle, delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-[3.5rem] xl:text-6xl font-extrabold mb-6 font-raleway leading-[1.08] tracking-tight text-gray-900"
-            >
-              Find a place you
-              <br />
-              will call{" "}
-              <span className="text-primary">home</span>
-            </motion.h1>
-
-            {/* Subtitle */}
-            <motion.p
-              variants={fadeUp}
-              transition={{ ...springGentle, delay: 0.2 }}
-              className="text-base md:text-lg text-gray-500 font-nunito mb-10 max-w-md mx-auto lg:mx-0 leading-relaxed"
-            >
-              With us you will find not just accommodation, but a place where
-              your new life begins, full of coziness and possibilities.
-            </motion.p>
-
-            {/* CTA button */}
-            <motion.div
-              variants={fadeUp}
-              transition={{ ...springGentle, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-            >
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center gap-2.5 bg-gray-900 text-white px-8 py-3.5 rounded-lg font-semibold text-base hover:bg-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
+            <span className="inline-block bg-gold text-primary-dark text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-4">
+              Property of the Month
+            </span>
+            <h1 className="text-4xl md:text-6xl font-extrabold font-raleway text-white mb-4 leading-tight">
+              The Oceanview <br />
+              <span className="text-gold">Penthouse</span>
+            </h1>
+            <p className="text-lg text-gray-200 mb-8 leading-relaxed">
+              Experience the pinnacle of luxury living with panoramic views of the
+              coastline. A sanctuary where elegance meets nature.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/properties/2" // Linking to Island Retreat (similar vibe)
+                className="bg-white text-primary-dark px-8 py-3.5 rounded-lg font-bold hover:bg-gold hover:text-white transition-colors text-center"
               >
-                Book a call
-              </a>
-            </motion.div>
-          </motion.div>
-
-          {/* ─── Right — Hero Image ─────────────────────────── */}
-          <motion.div
-            className="flex-1 w-full max-w-xl lg:max-w-none"
-            variants={slideRight}
-            initial="hidden"
-            animate="visible"
-            transition={{ ...springGentle, delay: 0.25 }}
-          >
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <Image
-                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&h=800&fit=crop"
-                alt="Modern luxury home exterior"
-                width={1200}
-                height={800}
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover w-full h-auto"
-                priority
-              />
-              {/* Image overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
+                View Details
+              </Link>
+              <Link
+                href="#contact"
+                className="border border-white text-white px-8 py-3.5 rounded-lg font-bold hover:bg-white/10 transition-colors text-center"
+              >
+                Book a Viewing
+              </Link>
             </div>
           </motion.div>
+        </motion.div>
+      </div>
+
+      {/* ── Trust Indicators ───────────────────────────── */}
+      <div className="absolute bottom-10 left-0 w-full z-10 px-4">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/20 pt-8">
+            {[
+              { label: "Years of Experience", value: "15+" },
+              { label: "Properties Sold", value: "350+" },
+              { label: "Happy Clients", value: "450+" },
+              { label: "Awards Won", value: "12" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <p className="text-3xl font-bold text-white mb-1">{stat.value}</p>
+                <p className="text-xs text-gray-300 uppercase tracking-wider font-bold">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

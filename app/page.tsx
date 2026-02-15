@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+// import HeroModern from "@/components/HeroModern";
 import Properties from "@/components/Properties";
 import Services from "@/components/Services";
 import Testimonials from "@/components/Testimonials";
@@ -11,6 +12,7 @@ export default function Home() {
     <main className="bg-white min-h-screen">
       <Header />
       <Hero />
+      {/* <HeroModern /> */}
       <Properties />
       <Services />
       <Testimonials />
