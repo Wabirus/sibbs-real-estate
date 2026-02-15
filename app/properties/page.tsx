@@ -1,20 +1,35 @@
-import PropertiesHero from "@/components/properties/hero";
-import ListingGrid from "@/components/properties/listing-grid";
+import Header from "@/components/Header";
+import SearchFilters from "@/components/SearchFilters";
+import PropertyGrid from "@/components/PropertyGrid";
+import Sidebar from "@/components/Sidebar";
+import Footer from "@/components/Footer";
 
 export default function PropertiesPage() {
     return (
-        <main className="min-h-screen bg-gray-50">
-            <PropertiesHero />
-            <div className="container mx-auto px-4 py-16">
-                <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary font-primary">Latest Exclusive Listings</h2>
-                    <p className="text-gray-600 max-w-2xl mx-auto">
-                        Discover our hand-picked selection of premium properties available for sale in the most sought-after locations.
-                    </p>
-                </div>
+        <main className="bg-white min-h-screen">
+            <Header />
 
-                <ListingGrid />
-            </div>
+            {/* ── Page Header ──────────────────────────────── */}
+            <section className="pt-32 pb-12 px-4 bg-gray-900 text-white text-center">
+                <h1 className="text-4xl md:text-5xl font-extrabold font-raleway mb-4">
+                    Our Properties
+                </h1>
+                <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+                    Explore our exclusive collection of luxury homes and investment opportunities.
+                </p>
+            </section>
+
+            <SearchFilters />
+
+            {/* ── Properties + Sidebar layout ──────────────── */}
+            <section className="py-16 px-4 bg-gray-50 border-t border-gray-100">
+                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
+                    <PropertyGrid />
+                    <Sidebar />
+                </div>
+            </section>
+
+            <Footer />
         </main>
     );
 }
