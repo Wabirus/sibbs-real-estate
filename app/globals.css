@@ -1,22 +1,47 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800&display=swap");
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
-
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #1e2a78;
-  --color-primary-light: #2c3892;
-  --color-primary-dark: #141c5a;
-  --color-gold: #D4AF37;
-  --color-gold-light: #e4c554;
+  /* Brand Theme */
+  --color-primary: #2c3892;
+  /* Navy Blue */
+  --color-primary-light: #4a54b0;
+  /* Lighter Blue */
+  --color-primary-dark: #1a2260;
+  /* Darker Navy */
+  --color-primary-foreground: #ffffff;
+
+  --color-gold: #dfb034;
+  /* Gold Accent */
+  --color-gold-light: #e8c35a;
+  /* Lighter Gold */
+
   --color-secondary: #f8f9fa;
+  --color-secondary-foreground: #2c3892;
+
   --color-surface: #ffffff;
   --color-surface-dim: #f1f3f8;
 
-  --font-sans: "Nunito", "Helvetica", "Arial", sans-serif;
-  --font-raleway: "Raleway", sans-serif;
-  --font-nunito: "Nunito", sans-serif;
-  --font-montserrat: "Montserrat", sans-serif;
+  --color-background: #ffffff;
+  --color-foreground: #020817;
+
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #64748b;
+
+  --color-accent: #f1f5f9;
+  --color-accent-foreground: #0f172a;
+
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #f8fafc;
+
+  --color-border: #e2e8f0;
+  --color-input: #e2e8f0;
+  --color-ring: #2c3892;
+
+  --radius-lg: 0.5rem;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-sm: calc(0.5rem - 4px);
+
+  --font-sans: "Georgia Pro", Georgia, "Times New Roman", serif;
 }
 
 /* ─── Base resets & smooth scroll ──────────────────────────── */
@@ -34,14 +59,14 @@ body {
 /* ─── Selection styling ───────────────────────────────────── */
 
 ::selection {
-  background-color: #D4AF37;
-  color: #1e2a78;
+  background-color: #dfb034;
+  color: #2c3892;
 }
 
 /* ─── Focus-visible for accessibility ─────────────────────── */
 
 :focus-visible {
-  outline: 2px solid #D4AF37;
+  outline: 2px solid #dfb034;
   outline-offset: 2px;
 }
 
@@ -50,7 +75,7 @@ body {
 .section-divider {
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, #D4AF37, #e4c554);
+  background: linear-gradient(90deg, #dfb034, #e8c35a);
   border-radius: 10px;
   margin-inline: auto;
 }
